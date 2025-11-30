@@ -1,0 +1,29 @@
+root@vm3-gnb1:~/UERANSIM/tools# baresip
+baresip v1.0.0 Copyright (C) 2010 - 2020 Alfred E. Heggestad et al.
+Binding to interface or IP address 'uesimtun0'
+net: uesimtun0: could not get IPv6 address (No such device)
+Local network address:  IPv4=uesimtun0|10.46.0.15 
+aucodec: PCMU/8000/1
+aucodec: PCMA/8000/1
+ausrc: alsa
+auplay: alsa
+medianat: stun
+medianat: turn
+medianat: ice
+Populated 1 account
+Populated 3 contacts
+Populated 2 audio codecs
+Populated 0 audio filters
+Populated 0 video codecs
+Populated 0 video filters
+baresip is ready.
+1001@192.168.64.60: {0/UDP/v4} 200 OK (Asterisk PBX 18.10.0~dfsg+~cs6.10.40431411-2) [1 binding]
+All 1 useragent registered successfully! (2 ms)
+
+
+vm4-upf2*CLI> sip show peers
+Name/username             Host                                    Dyn Forcerport Comedia    ACL Port     Status      Description                      
+1001/1001-0x59cdb7419240  10.46.0.15                               D  Auto (No)  No             50976    Unmonitored                                  
+1002/1002-0x649c9e9c4f20  (Unspecified)                            D  Auto (No)  No             0        Unmonitored                                  
+2 sip peers [Monitored: 0 online, 0 offline Unmonitored: 1 online, 1 offline]
+vm4-upf2*CLI> 

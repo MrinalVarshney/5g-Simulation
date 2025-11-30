@@ -1,0 +1,170 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "datasource": "prometheus",
+        "enable": true,
+        "hide": false,
+        "iconColor": "rgba(255, 96, 96, 1)",
+        "name": "UE Attach/Detach Events",
+        "type": "tags"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 1,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+
+    {
+      "type": "stat",
+      "title": "Total Connected UEs",
+      "gridPos": { "x": 0, "y": 0, "w": 6, "h": 3 },
+      "targets": [
+        { "expr": "sum(ran_ue)", "refId": "A" }
+      ]
+    },
+
+    {
+      "type": "stat",
+      "title": "Total PDU Sessions",
+      "gridPos": { "x": 6, "y": 0, "w": 6, "h": 3 },
+      "targets": [
+        { "expr": "sum(fivegs_smffunction_sm_sessionnbr)", "refId": "A" }
+      ]
+    },
+
+    {
+      "type": "stat",
+      "title": "VoIP Slice UL Traffic",
+      "gridPos": { "x": 12, "y": 0, "w": 6, "h": 3 },
+      "targets": [
+        { 
+          "expr": "rate(fivegs_ep_n3_gtp_indatapktn3upf{instance=\"192.168.64.60:9090\"}[5s])", 
+          "refId": "A" 
+        }
+      ]
+    },
+
+    {
+      "type": "stat",
+      "title": "Internet Slice UL Traffic",
+      "gridPos": { "x": 18, "y": 0, "w": 6, "h": 3 },
+      "targets": [
+        { 
+          "expr": "rate(fivegs_ep_n3_gtp_indatapktn3upf{instance=\"192.168.64.40:9090\"}[5s])", 
+          "refId": "A" 
+        }
+      ]
+    },
+
+    {
+      "type": "graph",
+      "title": "UL Throughput (VoIP / Internet / Internet2)",
+      "gridPos": { "x": 0, "y": 4, "w": 12, "h": 7 },
+      "targets": [
+        { 
+          "expr": "rate(fivegs_ep_n3_gtp_indatapktn3upf{instance=\"192.168.64.40:9090\"}[5s])", 
+          "legendFormat": "Internet UL", "refId": "A" 
+        },
+        { 
+          "expr": "rate(fivegs_ep_n3_gtp_indatapktn3upf{instance=\"192.168.64.60:9090\"}[5s])", 
+          "legendFormat": "VoIP UL", "refId": "B" 
+        },
+        { 
+          "expr": "rate(fivegs_ep_n3_gtp_indatapktn3upf{instance=\"192.168.64.50:9090\"}[5s])", 
+          "legendFormat": "Internet2 UL", "refId": "C" 
+        }
+      ]
+    },
+
+    {
+      "type": "graph",
+      "title": "DL Throughput (VoIP / Internet / Internet2)",
+      "gridPos": { "x": 12, "y": 4, "w": 12, "h": 7 },
+      "targets": [
+        { 
+          "expr": "rate(fivegs_ep_n3_gtp_outdatapktn3upf{instance=\"192.168.64.40:9090\"}[5s])", 
+          "legendFormat": "Internet DL", "refId": "A" 
+        },
+        { 
+          "expr": "rate(fivegs_ep_n3_gtp_outdatapktn3upf{instance=\"192.168.64.60:9090\"}[5s])", 
+          "legendFormat": "VoIP DL", "refId": "B" 
+        },
+        { 
+          "expr": "rate(fivegs_ep_n3_gtp_outdatapktn3upf{instance=\"192.168.64.50:9090\"}[5s])", 
+          "legendFormat": "Internet2 DL", "refId": "C" 
+        }
+      ]
+    },
+
+    {
+      "type": "graph",
+      "title": "VoIP QoS Traffic (UL/DL)",
+      "gridPos": { "x": 0, "y": 12, "w": 12, "h": 7 },
+      "targets": [
+        {
+          "expr": "rate(fivegs_ep_n3_gtp_indatavolumeqosleveln3upf{instance=\"192.168.64.60:9090\"}[5s])",
+          "legendFormat": "VoIP UL QoS",
+          "refId": "A"
+        },
+        {
+          "expr": "rate(fivegs_ep_n3_gtp_outdatavolumeqosleveln3upf{instance=\"192.168.64.60:9090\"}[5s])",
+          "legendFormat": "VoIP DL QoS",
+          "refId": "B"
+        }
+      ]
+    },
+
+    {
+      "type": "graph",
+      "title": "Internet QoS Traffic (UL/DL)",
+      "gridPos": { "x": 12, "y": 12, "w": 12, "h": 7 },
+      "targets": [
+        {
+          "expr": "rate(fivegs_ep_n3_gtp_indatavolumeqosleveln3upf{instance=\"192.168.64.40:9090\"}[5s])",
+          "legendFormat": "Internet UL QoS",
+          "refId": "A"
+        },
+        {
+          "expr": "rate(fivegs_ep_n3_gtp_outdatavolumeqosleveln3upf{instance=\"192.168.64.40:9090\"}[5s])",
+          "legendFormat": "Internet DL QoS",
+          "refId": "B"
+        }
+      ]
+    },
+
+    {
+      "type": "graph",
+      "title": "PDU Sessions per UPF",
+      "gridPos": { "x": 0, "y": 19, "w": 12, "h": 7 },
+      "targets": [
+        {
+          "expr": "fivegs_upffunction_upf_sessionnbr{instance=\"192.168.64.40:9090\"}",
+          "legendFormat": "Internet UPF Sessions",
+          "refId": "A"
+        },
+        {
+          "expr": "fivegs_upffunction_upf_sessionnbr{instance=\"192.168.64.60:9090\"}",
+          "legendFormat": "VoIP UPF Sessions",
+          "refId": "B"
+        },
+        {
+          "expr": "fivegs_upffunction_upf_sessionnbr{instance=\"192.168.64.50:9090\"}",
+          "legendFormat": "Internet2 UPF Sessions",
+          "refId": "C"
+        }
+      ]
+    }
+
+  ],
+  "schemaVersion": 36,
+  "style": "dark",
+  "tags": ["5g", "slicing", "upf"],
+  "timezone": "",
+  "title": "5G UPF-Slicing Dashboard",
+  "uid": "5g-upf-slicing-dashboard",
+  "version": 2
+}

@@ -1,0 +1,33 @@
+root@vm5-gnb2:~# baresip 
+baresip v1.0.0 Copyright (C) 2010 - 2020 Alfred E. Heggestad et al.
+Binding to interface or IP address 'uesimtun0'
+net: uesimtun0: could not get IPv6 address (No such device)
+Local network address:  IPv4=uesimtun0|10.46.0.25 
+aucodec: PCMU/8000/1
+aucodec: PCMA/8000/1
+medianat: stun
+medianat: turn
+medianat: ice
+Populated 1 account
+Populated 3 contacts
+Populated 2 audio codecs
+Populated 0 audio filters
+Populated 0 video codecs
+Populated 0 video filters
+baresip is ready.
+1002@192.168.64.60: {0/UDP/v4} 200 OK (Asterisk PBX 18.10.0~dfsg+~cs6.10.40431411-2) [1 binding]
+All 1 useragent registered successfully! (4 ms)
+ua: using AF from sdp offer: af=AF_INET
+sip:1002@192.168.64.60: Incoming call from:  sip:1001@10.46.0.1 - (press 'a' to accept)
+sip:1002@192.168.64.60: Answering incoming call
+call: answering call on line 1 from sip:1001@10.46.0.1 with 200
+stream: update 'audio'
+audio: Set audio decoder: PCMU 8000Hz 1ch
+audio: Set audio encoder: PCMU 8000Hz 1ch
+audio tx pipeline:       (src) ---> PCMU
+audio rx pipeline:      (play) <--- PCMU
+1002@192.168.64.60: Call established: sip:1001@10.46.0.1
+/quit:10] audio=0/0 (bit/s)    
+Quit
+ua: stop all (forced=0)
+sip:1002-0x5c9005ab9190@10.46.0.25:45501: Call with sip:1001@10.46.0.1 terminated (duration: 14 secs)

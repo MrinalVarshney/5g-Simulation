@@ -1,0 +1,394 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 1,
+  "panels": [
+    {
+      "type": "row",
+      "title": "UPF — Executive Overview",
+      "gridPos": { "x": 0, "y": 0, "w": 24, "h": 1 },
+      "id": 100,
+      "collapsed": false
+    },
+    {
+      "type": "stat",
+      "title": "Total Active UPF Sessions",
+      "gridPos": { "x": 0, "y": 1, "w": 6, "h": 3 },
+      "id": 1,
+      "datasource": "prometheus",
+      "targets": [
+        {
+          "expr": "sum(fivegs_upffunction_upf_sessionnbr)",
+          "refId": "A"
+        }
+      ],
+      "options": {
+        "reduceOptions": { "calcs": ["lastNotNull"], "values": false },
+        "orientation": "auto"
+      }
+    },
+    {
+      "type": "stat",
+      "title": "PFCP Peers Active",
+      "gridPos": { "x": 6, "y": 1, "w": 6, "h": 3 },
+      "id": 2,
+      "datasource": "prometheus",
+      "targets": [
+        { "expr": "pfcp_peers_active", "refId": "A" }
+      ],
+      "options": { "reduceOptions": { "calcs": ["lastNotNull"] } }
+    },
+    {
+      "type": "stat",
+      "title": "UPF QoS Flows (total)",
+      "gridPos": { "x": 12, "y": 1, "w": 6, "h": 3 },
+      "id": 3,
+      "datasource": "prometheus",
+      "targets": [
+        { "expr": "sum(fivegs_upffunction_upf_qosflows)", "refId": "A" }
+      ],
+      "options": { "reduceOptions": { "calcs": ["lastNotNull"] } }
+    },
+    {
+      "type": "stat",
+      "title": "N4 Session Estab Req (total)",
+      "gridPos": { "x": 18, "y": 1, "w": 6, "h": 3 },
+      "id": 4,
+      "datasource": "prometheus",
+      "targets": [
+        { "expr": "sum(fivegs_upffunction_sm_n4sessionestabreq)", "refId": "A" }
+      ],
+      "options": { "reduceOptions": { "calcs": ["lastNotNull"] } }
+    },
+
+    {
+      "type": "row",
+      "title": "Per-UPF (DNN) Summary",
+      "gridPos": { "x": 0, "y": 4, "w": 24, "h": 1 },
+      "id": 110,
+      "collapsed": false
+    },
+
+    {
+      "type": "row",
+      "title": "UPF - internet (UPF-1)",
+      "gridPos": { "x": 0, "y": 5, "w": 24, "h": 1 },
+      "id": 111,
+      "collapsed": false
+    },
+    {
+      "type": "stat",
+      "title": "Sessions — internet",
+      "gridPos": { "x": 0, "y": 6, "w": 6, "h": 3 },
+      "id": 10,
+      "datasource": "prometheus",
+      "targets": [
+        {
+          "expr": "sum(fivegs_upffunction_upf_sessionnbr{dnn=\"internet\"})",
+          "refId": "A"
+        }
+      ],
+      "options": { "reduceOptions": { "calcs": ["lastNotNull"] } }
+    },
+    {
+      "type": "stat",
+      "title": "QoS Flows — internet",
+      "gridPos": { "x": 6, "y": 6, "w": 6, "h": 3 },
+      "id": 11,
+      "datasource": "prometheus",
+      "targets": [
+        { "expr": "sum(fivegs_upffunction_upf_qosflows{dnn=\"internet\"})", "refId": "A" }
+      ],
+      "options": { "reduceOptions": { "calcs": ["lastNotNull"] } }
+    },
+    {
+      "type": "stat",
+      "title": "PFCP Peers (internet)",
+      "gridPos": { "x": 12, "y": 6, "w": 6, "h": 3 },
+      "id": 12,
+      "datasource": "prometheus",
+      "targets": [
+        { "expr": "pfcp_peers_active", "refId": "A" }
+      ],
+      "options": { "reduceOptions": { "calcs": ["lastNotNull"] } }
+    },
+    {
+      "type": "stat",
+      "title": "N4 Req (internet)",
+      "gridPos": { "x": 18, "y": 6, "w": 6, "h": 3 },
+      "id": 13,
+      "datasource": "prometheus",
+      "targets": [
+        { "expr": "sum(fivegs_upffunction_sm_n4sessionestabreq{dnn=\"internet\"})", "refId": "A" }
+      ],
+      "options": { "reduceOptions": { "calcs": ["lastNotNull"] } }
+    },
+
+    {
+      "type": "row",
+      "title": "UPF - voip (UPF-2)",
+      "gridPos": { "x": 0, "y": 10, "w": 24, "h": 1 },
+      "id": 112,
+      "collapsed": false
+    },
+    {
+      "type": "stat",
+      "title": "Sessions — voip",
+      "gridPos": { "x": 0, "y": 11, "w": 6, "h": 3 },
+      "id": 20,
+      "datasource": "prometheus",
+      "targets": [
+        { "expr": "sum(fivegs_upffunction_upf_sessionnbr{dnn=\"voip\"})", "refId": "A" }
+      ],
+      "options": { "reduceOptions": { "calcs": ["lastNotNull"] } }
+    },
+    {
+      "type": "stat",
+      "title": "QoS Flows — voip",
+      "gridPos": { "x": 6, "y": 11, "w": 6, "h": 3 },
+      "id": 21,
+      "datasource": "prometheus",
+      "targets": [
+        { "expr": "sum(fivegs_upffunction_upf_qosflows{dnn=\"voip\"})", "refId": "A" }
+      ],
+      "options": { "reduceOptions": { "calcs": ["lastNotNull"] } }
+    },
+    {
+      "type": "stat",
+      "title": "N4 Req (voip)",
+      "gridPos": { "x": 12, "y": 11, "w": 6, "h": 3 },
+      "id": 22,
+      "datasource": "prometheus",
+      "targets": [
+        { "expr": "sum(fivegs_upffunction_sm_n4sessionestabreq{dnn=\"voip\"})", "refId": "A" }
+      ],
+      "options": { "reduceOptions": { "calcs": ["lastNotNull"] } }
+    },
+    {
+      "type": "stat",
+      "title": "PFCP Peers (voip)",
+      "gridPos": { "x": 18, "y": 11, "w": 6, "h": 3 },
+      "id": 23,
+      "datasource": "prometheus",
+      "targets": [
+        { "expr": "pfcp_peers_active", "refId": "A" }
+      ],
+      "options": { "reduceOptions": { "calcs": ["lastNotNull"] } }
+    },
+
+    {
+      "type": "row",
+      "title": "UPF - internet2 (UPF-3)",
+      "gridPos": { "x": 0, "y": 15, "w": 24, "h": 1 },
+      "id": 113,
+      "collapsed": false
+    },
+    {
+      "type": "stat",
+      "title": "Sessions — internet2",
+      "gridPos": { "x": 0, "y": 16, "w": 6, "h": 3 },
+      "id": 30,
+      "datasource": "prometheus",
+      "targets": [
+        { "expr": "sum(fivegs_upffunction_upf_sessionnbr{dnn=\"internet2\"})", "refId": "A" }
+      ],
+      "options": { "reduceOptions": { "calcs": ["lastNotNull"] } }
+    },
+    {
+      "type": "stat",
+      "title": "QoS Flows — internet2",
+      "gridPos": { "x": 6, "y": 16, "w": 6, "h": 3 },
+      "id": 31,
+      "datasource": "prometheus",
+      "targets": [
+        { "expr": "sum(fivegs_upffunction_upf_qosflows{dnn=\"internet2\"})", "refId": "A" }
+      ],
+      "options": { "reduceOptions": { "calcs": ["lastNotNull"] } }
+    },
+    {
+      "type": "stat",
+      "title": "N4 Req (internet2)",
+      "gridPos": { "x": 12, "y": 16, "w": 6, "h": 3 },
+      "id": 32,
+      "datasource": "prometheus",
+      "targets": [
+        { "expr": "sum(fivegs_upffunction_sm_n4sessionestabreq{dnn=\"internet2\"})", "refId": "A" }
+      ],
+      "options": { "reduceOptions": { "calcs": ["lastNotNull"] } }
+    },
+    {
+      "type": "stat",
+      "title": "PFCP Peers (internet2)",
+      "gridPos": { "x": 18, "y": 16, "w": 6, "h": 3 },
+      "id": 33,
+      "datasource": "prometheus",
+      "targets": [
+        { "expr": "pfcp_peers_active", "refId": "A" }
+      ],
+      "options": { "reduceOptions": { "calcs": ["lastNotNull"] } }
+    },
+
+    {
+      "type": "row",
+      "title": "GTP-U (N3) Traffic & Volume",
+      "gridPos": { "x": 0, "y": 20, "w": 24, "h": 1 },
+      "id": 200,
+      "collapsed": false
+    },
+    {
+      "type": "timeseries",
+      "title": "GTP-U Incoming Packets (rate)",
+      "gridPos": { "x": 0, "y": 21, "w": 12, "h": 6 },
+      "id": 40,
+      "datasource": "prometheus",
+      "targets": [
+        { "expr": "rate(fivegs_ep_n3_gtp_indatapktn3upf[1m])", "legendFormat": "in pkts/s", "refId": "A" },
+        { "expr": "rate(fivegs_ep_n3_gtp_indatavolumeqosleveln3upf[1m])", "legendFormat": "in vol (QoS-level)", "refId": "B" }
+      ],
+      "options": { "legend": { "displayMode": "list", "placement": "bottom" } }
+    },
+
+    {
+      "type": "timeseries",
+      "title": "GTP-U Outgoing Packets (rate)",
+      "gridPos": { "x": 12, "y": 21, "w": 12, "h": 6 },
+      "id": 41,
+      "datasource": "prometheus",
+      "targets": [
+        { "expr": "rate(fivegs_ep_n3_gtp_outdatapktn3upf[1m])", "legendFormat": "out pkts/s", "refId": "A" },
+        { "expr": "rate(fivegs_ep_n3_gtp_outdatavolumeqosleveln3upf[1m])", "legendFormat": "out vol (QoS-level)", "refId": "B" }
+      ]
+    },
+
+    {
+      "type": "row",
+      "title": "N4 Signaling & Session Establish",
+      "gridPos": { "x": 0, "y": 28, "w": 24, "h": 1 },
+      "id": 300,
+      "collapsed": false
+    },
+    {
+      "type": "timeseries",
+      "title": "N4 Session Establish Requests / Success / Fail",
+      "gridPos": { "x": 0, "y": 29, "w": 12, "h": 6 },
+      "id": 50,
+      "datasource": "prometheus",
+      "targets": [
+        { "expr": "rate(fivegs_upffunction_sm_n4sessionestabreq[1m])", "legendFormat": "estab req/s", "refId": "A" },
+        { "expr": "rate(fivegs_upffunction_sm_n4sessionreportsucc[1m])", "legendFormat": "report succ/s", "refId": "B" },
+        { "expr": "rate(fivegs_upffunction_sm_n4sessionestabfail[1m])", "legendFormat": "estab fail/s", "refId": "C" }
+      ],
+      "options": { "legend": { "displayMode": "list", "placement": "bottom" } }
+    },
+    {
+      "type": "timeseries",
+      "title": "N4 Session Reports / Requests",
+      "gridPos": { "x": 12, "y": 29, "w": 12, "h": 6 },
+      "id": 51,
+      "datasource": "prometheus",
+      "targets": [
+        { "expr": "rate(fivegs_upffunction_sm_n4sessionreport[1m])", "legendFormat": "reports/s", "refId": "A" },
+        { "expr": "rate(fivegs_upffunction_sm_n4sessionreportsucc[1m])", "legendFormat": "reports succ/s", "refId": "B" }
+      ]
+    },
+
+    {
+      "type": "row",
+      "title": "Resources & Process Metrics",
+      "gridPos": { "x": 0, "y": 36, "w": 24, "h": 1 },
+      "id": 400,
+      "collapsed": false
+    },
+    {
+      "type": "timeseries",
+      "title": "Process CPU (core seconds rate)",
+      "gridPos": { "x": 0, "y": 37, "w": 8, "h": 6 },
+      "id": 60,
+      "datasource": "prometheus",
+      "targets": [
+        { "expr": "rate(process_cpu_seconds_total[1m])", "legendFormat": "cpu sec/s", "refId": "A" }
+      ]
+    },
+    {
+      "type": "timeseries",
+      "title": "Process Resident Memory (bytes)",
+      "gridPos": { "x": 8, "y": 37, "w": 8, "h": 6 },
+      "id": 61,
+      "datasource": "prometheus",
+      "targets": [
+        { "expr": "process_resident_memory_bytes", "legendFormat": "rss bytes", "refId": "A" }
+      ],
+      "options": { "yAxes": [{ "format": "bytes" }, { "format": "short" }] }
+    },
+    {
+      "type": "timeseries",
+      "title": "Process Virtual Memory (bytes)",
+      "gridPos": { "x": 16, "y": 37, "w": 8, "h": 6 },
+      "id": 62,
+      "datasource": "prometheus",
+      "targets": [
+        { "expr": "process_virtual_memory_bytes", "legendFormat": "virt bytes", "refId": "A" }
+      ]
+    },
+    {
+      "type": "timeseries",
+      "title": "Open File Descriptors",
+      "gridPos": { "x": 0, "y": 44, "w": 12, "h": 5 },
+      "id": 63,
+      "datasource": "prometheus",
+      "targets": [
+        { "expr": "process_open_fds", "legendFormat": "open_fds", "refId": "A" },
+        { "expr": "process_max_fds", "legendFormat": "max_fds", "refId": "B" }
+      ]
+    },
+    {
+      "type": "text",
+      "title": "How to use & Notes",
+      "gridPos": { "x": 12, "y": 44, "w": 12, "h": 5 },
+      "id": 64,
+      "options": {
+        "mode": "markdown",
+        "content": "### UPF Dashboard Guide\n\n- Use the top-level **DNN + filters** to focus on a particular UPF role (internet / voip / internet2).\n- Executive cards show total sessions, pfcp peers and N4 requests across all UPFs.\n- If some panels show `No data`, verify Prometheus scrape and that that metric is enabled in the UPF metrics endpoint.\n\n**Validation tips:** run iperf through UE netns and capture GTP-U on UPF to validate traffic. Use N4 logs on SMF/UPF for session correlation."
+      }
+    }
+  ],
+  "refresh": "10s",
+  "schemaVersion": 39,
+  "style": "dark",
+  "tags": ["open5gs", "upf", "5g-core", "monitoring"],
+  "templating": {
+    "list": [
+      {
+        "name": "dnn",
+        "type": "query",
+        "label": "DNN (UPF role)",
+        "datasource": "prometheus",
+        "query": "label_values(fivegs_upffunction_upf_qosflows, dnn)",
+        "multi": true,
+        "includeAll": true,
+        "allValue": ""
+      }
+    ]
+  },
+  "time": { "from": "now-1h", "to": "now" },
+  "timepicker": { "refresh_intervals": [ "5s", "10s", "30s", "1m", "5m", "15m" ] },
+  "timezone": "browser",
+  "title": "UPF — Industry Grade Monitoring",
+  "version": 1
+}

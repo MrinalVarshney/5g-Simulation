@@ -1,0 +1,434 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 1,
+  "links": [],
+  "panels": [
+    {
+      "type": "row",
+      "title": "AMF — Executive Overview",
+      "gridPos": { "x": 0, "y": 0, "w": 24, "h": 1 },
+      "id": 100,
+      "collapsed": false
+    },
+    {
+      "type": "stat",
+      "title": "Connected UEs",
+      "gridPos": { "x": 0, "y": 1, "w": 6, "h": 3 },
+      "id": 1,
+      "datasource": { "type": "prometheus" },
+      "targets": [
+        {
+          "expr": "amf_session",
+          "refId": "A"
+        }
+      ],
+      "options": {
+        "reduceOptions": { "calcs": ["lastNotNull"], "values": false },
+        "orientation": "auto",
+        "textMode": "value"
+      }
+    },
+    {
+      "type": "stat",
+      "title": "Connected gNBs",
+      "gridPos": { "x": 6, "y": 1, "w": 6, "h": 3 },
+      "id": 2,
+      "datasource": { "type": "prometheus" },
+      "targets": [
+        {
+          "expr": "gnb",
+          "refId": "A"
+        }
+      ],
+      "options": {
+        "reduceOptions": { "calcs": ["lastNotNull"], "values": false }
+      }
+    },
+    {
+      "type": "stat",
+      "title": "RAN UEs",
+      "gridPos": { "x": 12, "y": 1, "w": 6, "h": 3 },
+      "id": 3,
+      "datasource": { "type": "prometheus" },
+      "targets": [
+        {
+          "expr": "ran_ue",
+          "refId": "A"
+        }
+      ],
+      "options": {
+        "reduceOptions": { "calcs": ["lastNotNull"] }
+      }
+    },
+    {
+      "type": "stat",
+      "title": "AMF CPU Usage",
+      "gridPos": { "x": 18, "y": 1, "w": 6, "h": 3 },
+      "id": 4,
+      "datasource": { "type": "prometheus" },
+      "targets": [
+        {
+          "expr": "100 - (avg(rate(process_cpu_seconds_total[5m])) * 100)",
+          "refId": "A"
+        }
+      ],
+      "options": {
+        "reduceOptions": { "calcs": ["lastNotNull"] }
+      }
+    },
+
+    {
+      "type": "row",
+      "title": "Registration & Authentication",
+      "gridPos": { "x": 0, "y": 4, "w": 24, "h": 1 },
+      "id": 101,
+      "collapsed": false
+    },
+    {
+      "type": "timeseries",
+      "title": "Initial Registration Requests / Success / Fail",
+      "gridPos": { "x": 0, "y": 5, "w": 12, "h": 6 },
+      "id": 10,
+      "datasource": { "type": "prometheus" },
+      "targets": [
+        {
+          "expr": "rate(fivegs_amffunction_rm_reginitreq[1m])",
+          "legendFormat": "Init Req",
+          "refId": "A"
+        },
+        {
+          "expr": "rate(fivegs_amffunction_rm_reginitsucc[1m])",
+          "legendFormat": "Init Success",
+          "refId": "B"
+        },
+        {
+          "expr": "rate(fivegs_amffunction_rm_reginitfail[1m])",
+          "legendFormat": "Init Fail",
+          "refId": "C"
+        }
+      ],
+      "options": {
+        "legend": { "displayMode": "list", "placement": "bottom" }
+      }
+    },
+
+    {
+      "type": "timeseries",
+      "title": "Authentication Requests / Reject",
+      "gridPos": { "x": 12, "y": 5, "w": 12, "h": 6 },
+      "id": 11,
+      "datasource": { "type": "prometheus" },
+      "targets": [
+        {
+          "expr": "rate(fivegs_amffunction_amf_authreq[1m])",
+          "legendFormat": "Auth Req",
+          "refId": "A"
+        },
+        {
+          "expr": "rate(fivegs_amffunction_amf_authreject[1m])",
+          "legendFormat": "Auth Reject",
+          "refId": "B"
+        }
+      ]
+    },
+
+    {
+      "type": "row",
+      "title": "Paging / Mobility / Slice UE Count",
+      "gridPos": { "x": 0, "y": 12, "w": 24, "h": 1 },
+      "id": 102,
+      "collapsed": false
+    },
+
+    {
+      "type": "timeseries",
+      "title": "Paging Requests / Success",
+      "gridPos": { "x": 0, "y": 13, "w": 12, "h": 6 },
+      "id": 20,
+      "datasource": { "type": "prometheus" },
+      "targets": [
+        {
+          "expr": "rate(fivegs_amffunction_mm_paging5greq[1m])",
+          "legendFormat": "Paging Req",
+          "refId": "A"
+        },
+        {
+          "expr": "rate(fivegs_amffunction_mm_paging5gsucc[1m])",
+          "legendFormat": "Paging Success",
+          "refId": "B"
+        }
+      ]
+    },
+
+    {
+      "type": "timeseries",
+      "title": "Registered Subscribers Per Slice (PLMN/S-NSSAI)",
+      "gridPos": { "x": 12, "y": 13, "w": 12, "h": 6 },
+      "id": 21,
+      "datasource": { "type": "prometheus" },
+      "targets": [
+        {
+          "expr": "fivegs_amffunction_rm_registeredsubnbr",
+          "legendFormat": "Slice {{snssai}} – {{plmnid}}",
+          "refId": "A"
+        }
+      ],
+      "options": {
+        "legend": { "displayMode": "list", "placement": "bottom" }
+      }
+    },
+
+    {
+      "type": "row",
+      "title": "AMF Resource Monitoring",
+      "gridPos": { "x": 0, "y": 20, "w": 24, "h": 1 },
+      "id": 103,
+      "collapsed": false
+    },
+
+    {
+      "type": "timeseries",
+      "title": "AMF Memory (Resident Memory)",
+      "gridPos": { "x": 0, "y": 21, "w": 12, "h": 6 },
+      "id": 30,
+      "datasource": { "type": "prometheus" },
+      "targets": [
+        {
+          "expr": "process_resident_memory_bytes",
+          "legendFormat": "RSS",
+          "refId": "A"
+        }
+      ],
+      "options": {
+        "legend": { "displayMode": "list", "placement": "bottom" }
+      }
+    },
+
+    {
+      "type": "timeseries",
+      "title": "AMF Virtual Memory",
+      "gridPos": { "x": 12, "y": 21, "w": 12, "h": 6 },
+      "id": 31,
+      "datasource": { "type": "prometheus" },
+      "targets": [
+        {
+          "expr": "process_virtual_memory_bytes",
+          "legendFormat": "Virtual Mem",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "type": "row",
+      "title": "CPU / Load / Process Metrics",
+      "gridPos": { "x": 0, "y": 27, "w": 24, "h": 1 },
+      "id": 104,
+      "collapsed": false
+    },
+
+    {
+      "type": "timeseries",
+      "title": "AMF CPU (user + system % over 1m)",
+      "gridPos": { "x": 0, "y": 28, "w": 8, "h": 6 },
+      "id": 40,
+      "datasource": { "type": "prometheus" },
+      "targets": [
+        {
+          "expr": "sum(rate(process_cpu_seconds_total[1m])) by (instance) * 100",
+          "legendFormat": "CPU % {{instance}}",
+          "refId": "A"
+        }
+      ]
+    },
+
+    {
+      "type": "timeseries",
+      "title": "AMF Load Average (1m / 5m / 15m)",
+      "gridPos": { "x": 8, "y": 28, "w": 8, "h": 6 },
+      "id": 41,
+      "datasource": { "type": "prometheus" },
+      "targets": [
+        { "expr": "node_load1", "legendFormat": "load1 {{instance}}", "refId": "A" },
+        { "expr": "node_load5", "legendFormat": "load5 {{instance}}", "refId": "B" },
+        { "expr": "node_load15", "legendFormat": "load15 {{instance}}", "refId": "C" }
+      ]
+    },
+
+    {
+      "type": "timeseries",
+      "title": "Process FD / Open FDs",
+      "gridPos": { "x": 16, "y": 28, "w": 8, "h": 6 },
+      "id": 42,
+      "datasource": { "type": "prometheus" },
+      "targets": [
+        { "expr": "process_open_fds", "legendFormat": "open_fds {{instance}}", "refId": "A" },
+        { "expr": "process_max_fds", "legendFormat": "max_fds {{instance}}", "refId": "B" }
+      ]
+    },
+
+    {
+      "type": "row",
+      "title": "Networking / SBI / PFCP",
+      "gridPos": { "x": 0, "y": 34, "w": 24, "h": 1 },
+      "id": 105,
+      "collapsed": false
+    },
+
+    {
+      "type": "timeseries",
+      "title": "AMF Network Bytes RX/TX (node exporter)",
+      "gridPos": { "x": 0, "y": 35, "w": 12, "h": 6 },
+      "id": 50,
+      "datasource": { "type": "prometheus" },
+      "targets": [
+        {
+          "expr": "rate(node_network_receive_bytes_total[30s])",
+          "legendFormat": "rx_bytes {{instance}}",
+          "refId": "A"
+        },
+        {
+          "expr": "rate(node_network_transmit_bytes_total[30s])",
+          "legendFormat": "tx_bytes {{instance}}",
+          "refId": "B"
+        }
+      ],
+      "options": { "legend": { "displayMode": "list", "placement": "bottom" } }
+    },
+
+    {
+      "type": "timeseries",
+      "title": "PFCP / GTP events (if exported)",
+      "gridPos": { "x": 12, "y": 35, "w": 12, "h": 6 },
+      "id": 51,
+      "datasource": { "type": "prometheus" },
+      "targets": [
+        {
+          "expr": "pfcp_peers_active",
+          "legendFormat": "pfcp_peers",
+          "refId": "A"
+        },
+        {
+          "expr": "gtp_peers_active",
+          "legendFormat": "gtp_peers",
+          "refId": "B"
+        }
+      ]
+    },
+
+    {
+      "type": "row",
+      "title": "Diagnostics & Quick Lookups",
+      "gridPos": { "x": 0, "y": 41, "w": 24, "h": 1 },
+      "id": 106,
+      "collapsed": false
+    },
+
+    {
+      "type": "table",
+      "title": "AMF Process Summary (last value)",
+      "gridPos": { "x": 0, "y": 42, "w": 12, "h": 6 },
+      "id": 60,
+      "datasource": { "type": "prometheus" },
+      "targets": [
+        {
+          "expr": "process_start_time_seconds",
+          "refId": "A"
+        },
+        {
+          "expr": "process_resident_memory_bytes",
+          "refId": "B"
+        },
+        {
+          "expr": "process_virtual_memory_bytes",
+          "refId": "C"
+        }
+      ],
+      "options": { "showHeader": true }
+    },
+
+    {
+      "type": "text",
+      "title": "How to use & next steps",
+      "gridPos": { "x": 12, "y": 42, "w": 12, "h": 6 },
+      "id": 61,
+      "options": {
+        "mode": "markdown",
+        "content": "### Tips\n\n- For correlating spikes, capture PFCP & GTP traces and match timestamps.  \n- Add alert rules for: high CPU, unexpected drop in `amf_session`, gNB disconnects.  \n- If some panels show no data, confirm node_exporter or metric exporters are scraped."
+      }
+    }
+  ],
+  "refresh": "10s",
+  "schemaVersion": 39,
+  "style": "dark",
+  "tags": ["open5gs", "5g-core", "amf", "monitoring", "industry"],
+  "templating": {
+    "list": [
+      {
+        "name": "instance",
+        "type": "query",
+        "label": "AMF Instance",
+        "datasource": { "type": "prometheus" },
+        "query": "label_values(instance)",
+        "includeAll": true,
+        "multi": false,
+        "allValue": ".*",
+        "refresh": 1
+      },
+      {
+        "name": "plmnid",
+        "type": "query",
+        "label": "PLMN",
+        "datasource": { "type": "prometheus" },
+        "query": "label_values(plmnid)",
+        "includeAll": true,
+        "multi": false,
+        "refresh": 1
+      },
+      {
+        "name": "snssai",
+        "type": "query",
+        "label": "S-NSSAI",
+        "datasource": { "type": "prometheus" },
+        "query": "label_values(snssai)",
+        "includeAll": true,
+        "multi": false,
+        "refresh": 1
+      }
+    ]
+  },
+  "time": {
+    "from": "now-1h",
+    "to": "now"
+  },
+  "timepicker": {
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m"
+    ]
+  },
+  "timezone": "browser",
+  "title": "AMF — Industry Grade Monitoring Dashboard",
+  "uid": "amf-industrial-final",
+  "version": 1
+}

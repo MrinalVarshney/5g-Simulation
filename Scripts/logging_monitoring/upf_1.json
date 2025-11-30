@@ -1,0 +1,275 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": { "type": "grafana", "uid": "-- Grafana --" },
+        "enable": true,
+        "hide": true,
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "graphTooltip": 1,
+  "panels": [
+    {
+      "type": "row",
+      "title": "UPF — Executive Summary",
+      "id": 1,
+      "gridPos": { "x": 0, "y": 0, "w": 24, "h": 1 }
+    },
+    {
+      "type": "stat",
+      "title": "Total Active Sessions (All UPFs)",
+      "id": 2,
+      "gridPos": { "x": 0, "y": 1, "w": 6, "h": 3 },
+      "datasource": "prometheus",
+      "targets": [
+        { "expr": "sum(fivegs_upffunction_upf_sessionnbr)", "refId": "A" }
+      ],
+      "options": { "reduceOptions": { "calcs": ["lastNotNull"] } }
+    },
+    {
+      "type": "stat",
+      "title": "Total PFCP Peers",
+      "id": 3,
+      "gridPos": { "x": 6, "y": 1, "w": 6, "h": 3 },
+      "datasource": "prometheus",
+      "targets": [
+        { "expr": "sum(pfcp_peers_active)", "refId": "A" }
+      ],
+      "options": { "reduceOptions": { "calcs": ["lastNotNull"] } }
+    },
+
+    {
+      "type": "row",
+      "title": "UPF-1 — internet",
+      "id": 10,
+      "gridPos": { "x": 0, "y": 4, "w": 24, "h": 1 }
+    },
+    {
+      "type": "stat",
+      "title": "Sessions — internet",
+      "id": 11,
+      "gridPos": { "x": 0, "y": 5, "w": 6, "h": 3 },
+      "datasource": "prometheus",
+      "targets": [
+        { "expr": "sum(fivegs_upffunction_upf_sessionnbr)", "refId": "A" }
+      ],
+      "options": { "reduceOptions": { "calcs": ["lastNotNull"] } }
+    },
+    {
+      "type": "stat",
+      "title": "QoS Flows — internet",
+      "id": 12,
+      "gridPos": { "x": 6, "y": 5, "w": 6, "h": 3 },
+      "datasource": "prometheus",
+      "targets": [
+        {
+          "expr": "sum(fivegs_upffunction_upf_qosflows{dnn=\"internet\"})",
+          "refId": "A"
+        }
+      ],
+      "options": { "reduceOptions": { "calcs": ["lastNotNull"] } }
+    },
+    {
+      "type": "timeseries",
+      "title": "GTP N3 — Incoming / Outgoing Packets (internet)",
+      "id": 13,
+      "gridPos": { "x": 0, "y": 8, "w": 12, "h": 6 },
+      "datasource": "prometheus",
+      "targets": [
+        {
+          "expr": "rate(fivegs_ep_n3_gtp_indatapktn3upf[1m])",
+          "legendFormat": "in (internet)",
+          "refId": "A"
+        },
+        {
+          "expr": "rate(fivegs_ep_n3_gtp_outdatapktn3upf[1m])",
+          "legendFormat": "out (internet)",
+          "refId": "B"
+        }
+      ]
+    },
+    {
+      "type": "timeseries",
+      "title": "N4 Session Establishment — internet",
+      "id": 14,
+      "gridPos": { "x": 12, "y": 8, "w": 12, "h": 6 },
+      "datasource": "prometheus",
+      "targets": [
+        {
+          "expr": "rate(fivegs_upffunction_sm_n4sessionestabreq[1m])",
+          "legendFormat": "req",
+          "refId": "A"
+        },
+        {
+          "expr": "rate(fivegs_upffunction_sm_n4sessionreportsucc[1m])",
+          "legendFormat": "succ",
+          "refId": "B"
+        },
+        {
+          "expr": "rate(fivegs_upffunction_sm_n4sessionestabfail[1m])",
+          "legendFormat": "fail",
+          "refId": "C"
+        }
+      ]
+    },
+    {
+      "type": "row",
+      "title": "UPF-2 — voip",
+      "id": 20,
+      "gridPos": { "x": 0, "y": 15, "w": 24, "h": 1 }
+    },
+    {
+      "type": "stat",
+      "title": "Sessions — voip",
+      "id": 21,
+      "gridPos": { "x": 0, "y": 16, "w": 6, "h": 3 },
+      "datasource": "prometheus",
+      "targets": [
+        { "expr": "sum(fivegs_upffunction_upf_sessionnbr)", "refId": "A" }
+      ]
+    },
+    {
+      "type": "stat",
+      "title": "QoS Flows — voip",
+      "id": 22,
+      "gridPos": { "x": 6, "y": 16, "w": 6, "h": 3 },
+      "datasource": "prometheus",
+      "targets": [
+        {
+          "expr": "sum(fivegs_upffunction_upf_qosflows{dnn=\"voip\"})",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "type": "timeseries",
+      "title": "GTP Traffic — voip",
+      "id": 23,
+      "gridPos": { "x": 0, "y": 19, "w": 12, "h": 6 },
+      "datasource": "prometheus",
+      "targets": [
+        {
+          "expr": "rate(fivegs_ep_n3_gtp_indatapktn3upf[1m])",
+          "legendFormat": "in",
+          "refId": "A"
+        },
+        {
+          "expr": "rate(fivegs_ep_n3_gtp_outdatapktn3upf[1m])",
+          "legendFormat": "out",
+          "refId": "B"
+        }
+      ]
+    },
+
+    {
+      "type": "row",
+      "title": "UPF-3 — internet2",
+      "id": 30,
+      "gridPos": { "x": 0, "y": 26, "w": 24, "h": 1 }
+    },
+    {
+      "type": "stat",
+      "title": "Sessions — internet2",
+      "id": 31,
+      "gridPos": { "x": 0, "y": 27, "w": 6, "h": 3 },
+      "datasource": "prometheus",
+      "targets": [
+        { "expr": "sum(fivegs_upffunction_upf_sessionnbr)", "refId": "A" }
+      ]
+    },
+    {
+      "type": "stat",
+      "title": "QoS Flows — internet2",
+      "id": 32,
+      "gridPos": { "x": 6, "y": 27, "w": 6, "h": 3 },
+      "datasource": "prometheus",
+      "targets": [
+        {
+          "expr": "sum(fivegs_upffunction_upf_qosflows{dnn=\"internet2\"})",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "type": "timeseries",
+      "title": "GTP Traffic — internet2",
+      "id": 33,
+      "gridPos": { "x": 0, "y": 30, "w": 12, "h": 6 },
+      "datasource": "prometheus",
+      "targets": [
+        {
+          "expr": "rate(fivegs_ep_n3_gtp_indatapktn3upf[1m])",
+          "legendFormat": "in",
+          "refId": "A"
+        },
+        {
+          "expr": "rate(fivegs_ep_n3_gtp_outdatapktn3upf[1m])",
+          "legendFormat": "out",
+          "refId": "B"
+        }
+      ]
+    },
+
+    {
+      "type": "row",
+      "title": "UPF Resource Metrics (CPU / Memory / FD)",
+      "id": 40,
+      "gridPos": { "x": 0, "y": 37, "w": 24, "h": 1 }
+    },
+    {
+      "type": "timeseries",
+      "title": "UPF CPU Usage",
+      "id": 41,
+      "gridPos": { "x": 0, "y": 38, "w": 12, "h": 6 },
+      "datasource": "prometheus",
+      "targets": [
+        {
+          "expr": "rate(process_cpu_seconds_total[1m])",
+          "legendFormat": "{{instance}} CPU",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "type": "timeseries",
+      "title": "UPF Memory Usage",
+      "id": 42,
+      "gridPos": { "x": 12, "y": 38, "w": 12, "h": 6 },
+      "datasource": "prometheus",
+      "targets": [
+        {
+          "expr": "process_resident_memory_bytes",
+          "legendFormat": "{{instance}} RSS",
+          "refId": "A"
+        }
+      ]
+    }
+  ],
+  "refresh": "10s",
+  "schemaVersion": 39,
+  "style": "dark",
+  "tags": ["open5gs", "upf", "5g-core"],
+  "templating": {
+    "list": [
+      {
+        "name": "instance",
+        "label": "UPF Instance",
+        "type": "query",
+        "datasource": "prometheus",
+        "query": "label_values(instance)",
+        "includeAll": true,
+        "allValue": ".*",
+        "refresh": 1
+      }
+    ]
+  },
+  "time": { "from": "now-2h", "to": "now" },
+  "timezone": "browser",
+  "title": "UPF — Multi-Slice Performance Dashboard",
+  "version": 1
+}

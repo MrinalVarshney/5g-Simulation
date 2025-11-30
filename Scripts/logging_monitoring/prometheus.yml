@@ -1,0 +1,72 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets: []
+
+rule_files: []
+
+scrape_configs:
+  - job_name: "prometheus"
+    static_configs:
+      - targets: ["192.168.64.30:9091"]
+        labels:
+          app: "prometheus"
+
+  - job_name: "open5gs-amf"
+    static_configs:
+      - targets: ["192.168.64.30:9090"]
+        labels:
+          app: "open5gs"
+          node: "amf"
+
+  - job_name: 'open5gs-smfs'
+    static_configs:
+      - targets: [
+          '192.168.64.110:9090',   # SMF1
+          '192.168.64.120:9090',   # SMF2
+          '192.168.64.130:9090'    # SMF3
+        ]
+        labels:
+          app: open5gs
+          component: smf
+
+  - job_name: 'internet-upf'
+    static_configs:
+      - targets: [
+          '192.168.64.40:9090']   # UPF1 Internet 
+        labels:
+          app: open5gs
+          component: upf
+  
+
+  - job_name: 'voip-upf'
+    static_configs:
+      - targets: [
+          '192.168.64.60:9090']   # UPF2 VoIP
+        labels:
+          app: open5gs
+          component: upf
+
+  - job_name: 'internet2-upf'
+    static_configs:
+      - targets: [
+          '192.168.64.50:9090']   # UPF3 Video
+        labels:
+          app: open5gs
+          component: upf
+  
+  - job_name: 'node_exporters'
+    static_configs:
+      - targets: ['192.168.64.30:9100', # 5g-cplane
+                  '192.168.64.40:9100', # upf1
+                  '192.168.64.60:9100',  # upf2
+                  '192.168.64.50:9100'] # upf3  
+        labels:
+          app: node
+
+
+  

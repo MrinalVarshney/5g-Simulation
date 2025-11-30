@@ -1,0 +1,183 @@
+{
+  "id": null,
+  "uid": "5g-node-health-dashboard",
+  "title": "5G Node Health & UPF Performance Dashboard",
+  "timezone": "browser",
+  "schemaVersion": 38,
+  "version": 1,
+  "refresh": "5s",
+  "style": "dark",
+  "editable": true,
+  "tags": ["5g", "upf", "open5gs", "core", "monitoring"],
+  "panels": [
+
+
+    {
+      "type": "stat",
+      "title": "Core-Control CPU Load",
+      "gridPos": { "x": 0, "y": 0, "w": 6, "h": 3 },
+      "datasource": "prometheus",
+      "targets": [
+        {
+          "expr": "avg(rate(node_cpu_seconds_total{instance=\"192.168.64.30:9100\",mode=\"user\"}[1m])) * 100",
+          "refId": "A"
+        }
+      ],
+      "colorMode": "value",
+      "graphMode": "none",
+      "justifyMode": "center"
+    },
+
+    {
+      "type": "stat",
+      "title": "UPF-Internet CPU Load",
+      "gridPos": { "x": 6, "y": 0, "w": 6, "h": 3 },
+      "datasource": "prometheus",
+      "targets": [
+        {
+          "expr": "avg(rate(node_cpu_seconds_total{instance=\"192.168.64.40:9100\",mode=\"user\"}[1m])) * 100",
+          "refId": "A"
+        }
+      ]
+    },
+
+    {
+      "type": "stat",
+      "title": "UPF-VoIP CPU Load",
+      "gridPos": { "x": 12, "y": 0, "w": 6, "h": 3 },
+      "datasource": "prometheus",
+      "targets": [
+        {
+          "expr": "avg(rate(node_cpu_seconds_total{instance=\"192.168.64.60:9100\",mode=\"user\"}[1m])) * 100",
+          "refId": "A"
+        }
+      ]
+    },
+
+    {
+      "type": "stat",
+      "title": "UPF-Streaming CPU Load",
+      "gridPos": { "x": 18, "y": 0, "w": 6, "h": 3 },
+      "datasource": "prometheus",
+      "targets": [
+        {
+          "expr": "avg(rate(node_cpu_seconds_total{instance=\"192.168.64.50:9100\",mode=\"user\"}[1m])) * 100",
+          "refId": "A"
+        }
+      ]
+    },
+
+
+    {
+      "type": "text",
+      "title": "",
+      "gridPos": { "x": 0, "y": 3, "w": 24, "h": 1 },
+      "options": { "content": "## 🟦 Core-Control Node (C-Plane)", "mode": "markdown" }
+    },
+
+    {
+      "type": "timeseries",
+      "title": "CPU Usage – Core-Control",
+      "gridPos": { "x": 0, "y": 4, "w": 12, "h": 6 },
+      "datasource": "prometheus",
+      "targets": [
+        { "expr": "100 - (avg by (instance) (rate(node_cpu_seconds_total{instance=\"192.168.64.30:9100\",mode=\"idle\"}[5m])) * 100)", "refId": "A" }
+      ]
+    },
+
+    {
+      "type": "timeseries",
+      "title": "Memory Usage – Core-Control",
+      "gridPos": { "x": 12, "y": 4, "w": 12, "h": 6 },
+      "datasource": "prometheus",
+      "targets": [
+        { "expr": "(node_memory_MemTotal_bytes{instance=\"192.168.64.30:9100\"} - node_memory_MemAvailable_bytes{instance=\"192.168.64.30:9100\"}) / node_memory_MemTotal_bytes{instance=\"192.168.64.30:9100\"} * 100", "refId": "A" }
+      ]
+    },
+
+
+
+    {
+      "type": "text",
+      "gridPos": { "x": 0, "y": 10, "w": 24, "h": 1 },
+      "options": { "content": "## 🟩 UPF-Internet (Slice-1)", "mode": "markdown" }
+    },
+
+    {
+      "type": "timeseries",
+      "title": "CPU Usage – UPF-Internet",
+      "gridPos": { "x": 0, "y": 11, "w": 12, "h": 6 },
+      "datasource": "prometheus",
+      "targets": [
+        { "expr": "100 - (avg(rate(node_cpu_seconds_total{instance=\"192.168.64.40:9100\",mode=\"idle\"}[1m])) * 100)", "refId": "A" }
+      ]
+    },
+
+    {
+      "type": "timeseries",
+      "title": "Network PPS – UPF-Internet",
+      "gridPos": { "x": 12, "y": 11, "w": 12, "h": 6 },
+      "datasource": "prometheus",
+      "targets": [
+        { "expr": "rate(node_network_receive_packets_total{instance=\"192.168.64.40:9100\"}[30s])", "legendFormat": "RX PPS", "refId": "A" },
+        { "expr": "rate(node_network_transmit_packets_total{instance=\"192.168.64.40:9100\"}[30s])", "legendFormat": "TX PPS", "refId": "B" }
+      ]
+    },
+
+    {
+      "type": "text",
+      "gridPos": { "x": 0, "y": 17, "w": 24, "h": 1 },
+      "options": { "content": "## 🟧 UPF-VoIP (Slice-2)", "mode": "markdown" }
+    },
+
+    {
+      "type": "timeseries",
+      "title": "CPU Usage – UPF-VoIP",
+      "gridPos": { "x": 0, "y": 18, "w": 12, "h": 6 },
+      "datasource": "prometheus",
+      "targets": [
+        { "expr": "100 - (avg(rate(node_cpu_seconds_total{instance=\"192.168.64.60:9100\",mode=\"idle\"}[1m])) * 100)", "refId": "A" }
+      ]
+    },
+
+    {
+      "type": "timeseries",
+      "title": "Network PPS – UPF-VoIP",
+      "gridPos": { "x": 12, "y": 18, "w": 12, "h": 6 },
+      "datasource": "prometheus",
+      "targets": [
+        { "expr": "rate(node_network_receive_packets_total{instance=\"192.168.64.60:9100\"}[30s])", "legendFormat": "RX PPS", "refId": "A" },
+        { "expr": "rate(node_network_transmit_packets_total{instance=\"192.168.64.60:9100\"}[30s])", "legendFormat": "TX PPS", "refId": "B" }
+      ]
+    },
+
+
+    {
+      "type": "text",
+      "gridPos": { "x": 0, "y": 24, "w": 24, "h": 1 },
+      "options": { "content": "## 🟪 UPF-Streaming (Slice-3)", "mode": "markdown" }
+    },
+
+    {
+      "type": "timeseries",
+      "title": "CPU Usage – UPF-Streaming",
+      "gridPos": { "x": 0, "y": 25, "w": 12, "h": 6 },
+      "datasource": "prometheus",
+      "targets": [
+        { "expr": "100 - (avg(rate(node_cpu_seconds_total{instance=\"192.168.64.50:9100\",mode=\"idle\"}[1m])) * 100)", "refId": "A" }
+      ]
+    },
+
+    {
+      "type": "timeseries",
+      "title": "Network PPS – UPF-Streaming",
+      "gridPos": { "x": 12, "y": 25, "w": 12, "h": 6 },
+      "datasource": "prometheus",
+      "targets": [
+        { "expr": "rate(node_network_receive_packets_total{instance=\"192.168.64.50:9100\"}[30s])", "legendFormat": "RX PPS", "refId": "A" },
+        { "expr": "rate(node_network_transmit_packets_total{instance=\"192.168.64.50:9100\"}[30s])", "legendFormat": "TX PPS", "refId": "B" }
+      ]
+    }
+
+  ]
+}

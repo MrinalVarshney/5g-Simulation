@@ -1,0 +1,12 @@
+network:
+    version: 2
+    ethernets:
+        eth0:
+            dhcp4: true
+        eth1:
+            dhcp4: no
+            addresses:
+              - 192.168.64.30/24
+              - 192.168.64.110/24
+              - 192.168.64.120/24
+              - 192.168.64.130/24
